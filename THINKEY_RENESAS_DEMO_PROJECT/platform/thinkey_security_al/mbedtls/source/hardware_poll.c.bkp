@@ -1,0 +1,52 @@
+#include "mbedtls/config.h"
+
+#if defined(MBEDTLS_ENTROPY_HARDWARE_ALT)
+
+#include "mbedtls/entropy.h"
+
+#include "crypto_common.h"
+#include "cy_crypto_core_trng.h"
+
+/* Initialization polynomial values from True Random Generator */
+#define GARO31_INITSTATE          (0x04c11db7u)
+#define FIRO31_INITSTATE          (0x04c11db7u)
+
+#define MAX_TRNG_BIT_SIZE         (32UL)
+
+int mbedtls_hardware_poll( void * data, unsigned char * output, size_t len, size_t * olen )
+{
+    int ret = 0;
+    *olen = 0;
+
+    cy_hw_crypto_t crypto_obj;
+
+    /* temporary random data buffer */
+    uint32_t random;
+
+    (void)data;
+
+    /* Reserve the crypto hardware for the operation */
+    cy_hw_crypto_reserve(&crypto_obj, CY_CMGR_CRYPTO_TRNG);
+
+    /* Get Random byte */
+    while ((*olen < len) && (ret == 0)) {
+        if (Cy_Crypto_Core_Trng(CRYPTO, GARO31_INITSTATE, FIRO31_INITSTATE, MAX_TRNG_BIT_SIZE, &random) != CY_CRYPTO_SUCCESS)
+        {
+            ret = MBEDTLS_ERR_ENTROPY_SOURCE_FAILED;
+        } else {
+            for (uint8_t i = 0; (i < 4) && (*olen < len) ; i++)
+            {
+                *output++ = ((uint8_t *)&random)[i];
+                *olen += 1;
+            }
+        }
+    }
+    random = 0uL;
+
+    /* Release the crypto hardware */
+    cy_hw_crypto_release(&crypto_obj);
+
+    return (ret);
+}
+
+#endif /* MBEDTLS_ENTROPY_HARDWARE_ALT */
