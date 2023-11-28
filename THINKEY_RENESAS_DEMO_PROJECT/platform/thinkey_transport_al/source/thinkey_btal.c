@@ -858,49 +858,49 @@ static void advertising_init(void)
 THINKey_eStatusType THINKey_BTAL_eBleStackInit()
 {
     THINKey_DEBUG_TAG TAG ="BTAL";
-    THINKey_eStatusType eRetStatus = E_THINKEY_FAILURE;
-    THINKey_UINT32 uiTaskID;
-    do
-    {
-        if(THINKey_TRUE == bBtInitDone)
-        {
-            THINKEY_DEBUG_INFO("Stack Init Done. Just return success\r\n");
-            eRetStatus = E_THINKEY_SUCCESS;
-            break;
-        }
-        ble_stack_init();
-        THINKEY_DEBUG_INFO("ble_stack_init done");
-        gap_params_init();
-        THINKEY_DEBUG_INFO("gap_params_init done");
-        gatt_init();
-        THINKEY_DEBUG_INFO("gatt init done");
-        services_init();
-        THINKEY_DEBUG_INFO("services init done");
-        advertising_init();
-        THINKEY_DEBUG_INFO("advertising_init done");
-        conn_params_init();
-        THINKEY_DEBUG_INFO("connection param init done");
-
-
+    THINKey_eStatusType eRetStatus = E_THINKEY_SUCCESS;
+//    THINKey_UINT32 uiTaskID;
+//    do
+//    {
+//        if(THINKey_TRUE == bBtInitDone)
+//        {
+//            THINKEY_DEBUG_INFO("Stack Init Done. Just return success\r\n");
+//            eRetStatus = E_THINKEY_SUCCESS;
+//            break;
+//        }
+//        ble_stack_init();
+//        THINKEY_DEBUG_INFO("ble_stack_init done");
+//        gap_params_init();
+//        THINKEY_DEBUG_INFO("gap_params_init done");
+//        gatt_init();
+//        THINKEY_DEBUG_INFO("gatt init done");
+//        services_init();
+//        THINKEY_DEBUG_INFO("services init done");
+//        advertising_init();
+//        THINKEY_DEBUG_INFO("advertising_init done");
+//        conn_params_init();
+//        THINKEY_DEBUG_INFO("connection param init done");
+//
+//
         vProcessQueue = THINKey_OSAL_hCreateQueue(BLE_QUEUE_LENGTH,
                                               sizeof(THINKey_sBleProcessEvents));
         THINKEY_DEBUG_INFO("THINKey_OSAL_hCreateQueue retruned");
-
-        eRetStatus = THINKey_OSAL_eCreateTask(BTAL_EVENT_TASK_NAME,
-                task_process_events,
-                THINKey_NULL,
-                THIKEY_BTAL_EVENT_PRIORITY,
-                THINKEY_BTAL_STACK_SIZE,
-                &uiTaskID);
-        THINKEY_DEBUG_INFO("BTAL THINKey_OSAL_eCreateTask retrined:%d", eRetStatus);
-        if (E_THINKEY_SUCCESS == eRetStatus)
-        {
-            THINKEY_DEBUG_INFO("%s:BTAL Task created\n", TAG);
-        }//TODO: check for failure
-
-        bBtInitDone = THINKey_TRUE;
-        eRetStatus = E_THINKEY_SUCCESS;
-    } while (THINKey_EXIT);
+//
+//        eRetStatus = THINKey_OSAL_eCreateTask(BTAL_EVENT_TASK_NAME,
+//                task_process_events,
+//                THINKey_NULL,
+//                THIKEY_BTAL_EVENT_PRIORITY,
+//                THINKEY_BTAL_STACK_SIZE,
+//                &uiTaskID);
+//        THINKEY_DEBUG_INFO("BTAL THINKey_OSAL_eCreateTask retrined:%d", eRetStatus);
+//        if (E_THINKEY_SUCCESS == eRetStatus)
+//        {
+//            THINKEY_DEBUG_INFO("%s:BTAL Task created\n", TAG);
+//        }//TODO: check for failure
+//
+//        bBtInitDone = THINKey_TRUE;
+//        eRetStatus = E_THINKEY_SUCCESS;
+//    } while (THINKey_EXIT);
     return eRetStatus;
 }
 
@@ -986,6 +986,8 @@ THINKey_eStatusType THINKey_BTAL_eBleStartAdvert(THINKey_ePairingType ePairingTy
 //            eRetStatus = E_THINKEY_SUCCESS;
 //        }
 //    } while(THINKey_EXIT);
+    //edited :
+    eRetStatus = E_THINKEY_SUCCESS;
     return eRetStatus;
 }
 

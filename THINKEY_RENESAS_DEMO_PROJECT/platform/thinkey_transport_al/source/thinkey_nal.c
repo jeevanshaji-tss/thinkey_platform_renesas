@@ -8,7 +8,7 @@
 #include "ptxPLAT.h"
 
 
-#define TAB_UI_DEMO
+//#define TAB_UI_DEMO
 
 #ifdef TAB_UI_DEMO
 #include "thinkey_tab_app.h"
@@ -201,6 +201,21 @@ TKey_StatusType tkey_NAL_StopDiscovery(TKey_Handle hNalHandle) {
 
     psNalHandle->bDiscovering = 0;
 
+    //edited :
+
+    ptxStatus_t st = ptxStatus_Success;
+
+    st = ptxIoTRd_Reader_Deactivation(&psNalHandle->sIotRd,
+                                      PTX_IOTRD_RF_DEACTIVATION_TYPE_IDLE);
+                        THINKEY_DEBUG_INFO("Deactivating Reader %d", st);
+                        if (ptxStatus_Success == st)
+                        {
+                            THINKEY_DEBUG_INFO("Deactivation success");
+                        }
+                        THINKEY_DEBUG_INFO("Waiting for discovered Cards ...\n");
+                        psNalHandle->eDiscoveryState = E_PTX_STATE_WAIT_FOR_ACTIVATION;
+
+     // edited end :
     /* TODO: Delete task */
 
     return eRetStatus;
@@ -355,6 +370,7 @@ TKey_VOID tkey_Nfc_DetectTask(TKey_VOID* pvTaskParam) {
             case E_PTX_STATE_SYSTEM_ERROR:
                 {
                     bExitLoop = TKey_TRUE;
+                    THINKEY_DEBUG_INFO("E_PTX_STATE_SYSTEM_ERROR \n");
                     /* reset the system and quit*/
                     (void)ptxIoTRd_SWReset(&psNalHandle->sIotRd);
                     break;

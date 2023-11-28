@@ -7,6 +7,7 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
+bool isWrite = 0;
 /* Start and end of section defined in linker script for dkstore */
 extern void* __dkstore_start__;
 extern void* __dkstore_end__;
@@ -89,21 +90,23 @@ TKey_StatusType TKey_DkStore_Write(TKey_DKObject_t eObjType, TKey_BYTE*
 //    /* Bits in flash can only be changed from 1's to 0's. So erase first and then write */
 //    TKey_DkStore_Erase();
 //
-//    switch(eObjType)
-//    {
-//    case E_TKEY_STORE_PUBLIC_KEY:
-//        {
-//            memcpy(aucData, pucData, size);
-//#if PRINT_FALSH_DATA
-//            THINKEY_DEBUG_INFO("Waiting for flash ready");
-//            for(int i=0; i < size - 4; i++) {
-//                THINKEY_DEBUG_INFO("%.2x", aucData[i]);
-//            }
-//#endif
+    switch(eObjType)
+    {
+    case E_TKEY_STORE_PUBLIC_KEY:
+        {
+
+            isWrite = 1;
+            memcpy(aucData, pucData, size);
+#if PRINT_FALSH_DATA
+            THINKEY_DEBUG_INFO("Waiting for flash ready");
+            for(int i=0; i < size - 4; i++) {
+                THINKEY_DEBUG_INFO("%.2x", aucData[i]);
+            }
+#endif
 //            wait_for_flash_ready(&sKeyStoreInstance);
-//            /* The flash is program unit sensitive.
-//            * We can store only in the multiple of 4. As Pub key is 65 bytes,
-//            we whould write the next 4 byte allingned size */
+            /* The flash is program unit sensitive.
+            * We can store only in the multiple of 4. As Pub key is 65 bytes,
+            we whould write the next 4 byte allingned size */
 //            retStatus = nrf_fstorage_write(&sKeyStoreInstance,
 //                    TKEY_STORAGE_PUB_KEY_INIT_BYTE_ADDR,
 //                    aucData, TKEY_PUB_KEY_STORAGE_SIZE, NULL);
@@ -111,23 +114,23 @@ TKey_StatusType TKey_DkStore_Write(TKey_DKObject_t eObjType, TKey_BYTE*
 //                THINKEY_DEBUG_ERROR("Storage Write Failed! %d", retStatus);
 //                break;
 //            }
-//            THINKEY_DEBUG_INFO("Waiting for flash write done");
-//            /* Currently we have configured polling method to get events.
-//             * The BLE task does polling but the callback of write complete
-//             * was not getting called. Hence doing manual polling here */
+            THINKEY_DEBUG_INFO("Waiting for flash write done");
+            /* Currently we have configured polling method to get events.
+             * The BLE task does polling but the callback of write complete
+             * was not getting called. Hence doing manual polling here */
 //            checkWriteComplete();
-//            THINKEY_DEBUG_INFO("Flash write done");
-//            eStatus = E_TKEY_SUCCESS;
-//        }
-//        break;
-//    case E_TKEY_STORE_PRIVATE_KEY:
-//        {
-//
-//        }
-//        break;
-//    default:
-//        break;
-//    }
+            THINKEY_DEBUG_INFO("Flash write done");
+            eStatus = E_TKEY_SUCCESS;
+        }
+        break;
+    case E_TKEY_STORE_PRIVATE_KEY:
+        {
+
+        }
+        break;
+    default:
+        break;
+    }
     return eStatus;
 }
 
@@ -141,15 +144,19 @@ TKey_StatusType TKey_DkStore_Read(TKey_DKObject_t eObjType, TKey_BYTE*
     TKey_StatusType eStatus = E_TKEY_FAILURE;
 //    ret_code_t retStatus = NRF_ERROR_INVALID_STATE;
 //
-//    switch (eObjType)
-//    {
-//    case E_TKEY_STORE_PUBLIC_KEY:
-//        {
-//            /* The flash is program byte alignment sensitive.
-//            * We can store only in the multiple of 4. As Pub key is 65 bytes,
-//            * ignoring the first byte which is 04 and storing the x and y
-//            * component */
-//            THINKEY_DEBUG_INFO("Waiting for flash ready");
+    switch (eObjType)
+    {
+    case E_TKEY_STORE_PUBLIC_KEY:
+
+        {
+            if(isWrite == 1){
+                pucData[0]=0x04;
+            }
+            /* The flash is program byte alignment sensitive.
+            * We can store only in the multiple of 4. As Pub key is 65 bytes,
+            * ignoring the first byte which is 04 and storing the x and y
+            * component */
+            THINKEY_DEBUG_INFO("Waiting for flash ready");
 //            wait_for_flash_ready(&sKeyStoreInstance);
 //            retStatus = nrf_fstorage_read(&sKeyStoreInstance,
 //                    TKEY_STORAGE_PUB_KEY_INIT_BYTE_ADDR, aucData,
@@ -157,20 +164,20 @@ TKey_StatusType TKey_DkStore_Read(TKey_DKObject_t eObjType, TKey_BYTE*
 //            if(retStatus != NRF_SUCCESS) {
 //                THINKEY_DEBUG_ERROR("Storage Read Failed! %d", retStatus);
 //                break;
-//            }
+ //           }
 //            memcpy(pucData, aucData, size);
-//            THINKEY_DEBUG_INFO("Storage Read SUCCESS!");
-//            eStatus = E_TKEY_SUCCESS;
-//        }
-//        break;
+            THINKEY_DEBUG_INFO("Storage Read SUCCESS!");
+            eStatus = E_TKEY_SUCCESS;
+        }
+        break;
 //    case E_TKEY_STORE_PRIVATE_KEY:
 //        {
 //
 //        }
 //        break;
-//    default:
-//        break;
-//    }
+    default:
+        break;
+    }
     return eStatus;
 } 
 

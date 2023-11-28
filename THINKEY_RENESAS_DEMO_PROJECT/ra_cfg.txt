@@ -471,12 +471,12 @@ FSP Configuration
     Write Protect Enable: Disabled
     Clock Source: PCLKD
     
-  Module "FreeRTOS Heap 2"
   Module "SPI (r_spi)"
     Parameter Checking: Default (BSP)
     Enable Support for using a transfer API: Enabled
     Enable Transmitting from RXI Interrupt: Disabled
     
+  Module "FreeRTOS Heap 4"
   FreeRTOS
     General: Custom FreeRTOSConfig.h: 
     General: Use Preemption: Enabled
@@ -488,7 +488,7 @@ FSP Configuration
     Hooks: Use Tick Hook: Disabled
     General: Cpu Clock Hz: SystemCoreClock
     General: Tick Rate Hz: 1000
-    General: Max Priorities: 5
+    General: Max Priorities: 7
     General: Minimal Stack Size: 128
     General: Max Task Name Len: 16
     Stats: Use Trace Facility: Disabled
@@ -510,7 +510,7 @@ FSP Configuration
     General: Message Buffer Length Type: size_t
     Memory Allocation: Support Static Allocation: Disabled
     Memory Allocation: Support Dynamic Allocation: Enabled
-    Memory Allocation: Total Heap Size: 0x1000
+    Memory Allocation: Total Heap Size: 45000
     Memory Allocation: Application Allocated Heap: Disabled
     Stats: Generate Run Time Stats: Disabled
     Timers: Use Timers: Enabled
@@ -647,7 +647,6 @@ FSP Configuration
       Extra Features: Output Disable: GTIOCA Disable Setting: Disable Prohibited
       Extra Features: Output Disable: GTIOCB Disable Setting: Disable Prohibited
       
-    Instance "FreeRTOS Heap 2"
     Instance "g_spi0 SPI (r_spi)"
       Name: g_spi0
       Channel: 0
@@ -673,6 +672,7 @@ FSP Configuration
       SSL Negation Delay: 1 Clock
       Next Access Delay: 1 Clock
       
+    Instance "FreeRTOS Heap 4"
   Thread "Sender Task"
     Symbol: sender_task
     Name: Sender Task

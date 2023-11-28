@@ -178,10 +178,6 @@
       <description>FreeRTOS</description>
       <originalPack>Amazon.FreeRTOS-Kernel.10.4.6+fsp.4.6.0.pack</originalPack>
     </component>
-    <component apiversion="" class="Heaps" condition="" group="FreeRTOS" subgroup="heap_2" variant="" vendor="AWS" version="10.4.6+fsp.4.6.0">
-      <description>FreeRTOS - Memory Management - Heap 2</description>
-      <originalPack>Amazon.FreeRTOS-Kernel.10.4.6+fsp.4.6.0.pack</originalPack>
-    </component>
     <component apiversion="" class="Common" condition="" group="all" subgroup="fsp_common" variant="" vendor="Renesas" version="4.6.0">
       <description>Board Support Package Common Files</description>
       <originalPack>Renesas.RA.4.6.0.pack</originalPack>
@@ -201,6 +197,10 @@
     <component apiversion="" class="HAL Drivers" condition="" group="all" subgroup="r_spi" variant="" vendor="Renesas" version="4.6.0">
       <description>Serial Peripheral Interface</description>
       <originalPack>Renesas.RA.4.6.0.pack</originalPack>
+    </component>
+    <component apiversion="" class="Heaps" condition="" group="FreeRTOS" subgroup="heap_4" variant="" vendor="AWS" version="10.4.6+fsp.4.6.0">
+      <description>FreeRTOS - Memory Management - Heap 4</description>
+      <originalPack>Amazon.FreeRTOS-Kernel.10.4.6+fsp.4.6.0.pack</originalPack>
     </component>
   </raComponentSelection>
   <raElcConfiguration/>
@@ -310,7 +310,6 @@
       <property id="module.driver.timer.gtioca_disable_setting" value="module.driver.timer.gtioca_disable_setting.gtioc_disable_prohibited"/>
       <property id="module.driver.timer.gtiocb_disable_setting" value="module.driver.timer.gtiocb_disable_setting.gtioc_disable_prohibited"/>
     </module>
-    <module id="module.freertos.heap.2.509260238"/>
     <module id="module.driver.spi_on_spi.463009989">
       <property id="module.driver.spi.name" value="g_spi0"/>
       <property id="module.driver.spi.channel" value="0"/>
@@ -336,6 +335,7 @@
       <property id="module.driver.spi.ssl_negation_delay" value="module.driver.spi.ssl_negation_delay.one"/>
       <property id="module.driver.spi.next_access_delay" value="module.driver.spi.next_access_delay.one"/>
     </module>
+    <module id="module.freertos.heap.4.2081363075"/>
     <object id="rtos.awsfreertos.object.queue.2021280776">
       <property id="rtos.awsfreertos.object.queue.symbol" value="g_queue"/>
       <property id="rtos.awsfreertos.object.queue.item_size" value="15"/>
@@ -350,8 +350,8 @@
       <stack module="module.driver.ioport_on_ioport.0"/>
       <stack module="module.driver.timer_on_gpt.945759850"/>
       <stack module="module.driver.timer_on_gpt.1778496366"/>
-      <stack module="module.freertos.heap.2.509260238"/>
       <stack module="module.driver.spi_on_spi.463009989"/>
+      <stack module="module.freertos.heap.4.2081363075"/>
     </context>
     <context id="rtos.awsfreertos.thread.1279267387">
       <property id="_symbol" value="sender_task"/>
@@ -394,7 +394,7 @@
       <property id="config.awsfreertos.thread.configuse_tick_hook" value="config.awsfreertos.thread.configuse_tick_hook.disabled"/>
       <property id="config.awsfreertos.thread.configcpu_clock_hz" value="SystemCoreClock"/>
       <property id="config.awsfreertos.thread.configtick_rate_hz" value="1000"/>
-      <property id="config.awsfreertos.thread.configmax_priorities" value="5"/>
+      <property id="config.awsfreertos.thread.configmax_priorities" value="7"/>
       <property id="config.awsfreertos.thread.configminimal_stack_size" value="128"/>
       <property id="config.awsfreertos.thread.configmax_task_name_len" value="16"/>
       <property id="config.awsfreertos.thread.configuse_trace_facility" value="config.awsfreertos.thread.configuse_trace_facility.disabled"/>
@@ -416,7 +416,7 @@
       <property id="config.awsfreertos.thread.configmessage_buffer_length_type" value="size_t"/>
       <property id="config.awsfreertos.thread.configsupport_static_allocation" value="config.awsfreertos.thread.configsupport_static_allocation.disabled"/>
       <property id="config.awsfreertos.thread.configsupport_dynamic_allocation" value="config.awsfreertos.thread.configsupport_dynamic_allocation.enabled"/>
-      <property id="config.awsfreertos.thread.configtotal_heap_size" value="0x1000"/>
+      <property id="config.awsfreertos.thread.configtotal_heap_size" value="45000"/>
       <property id="config.awsfreertos.thread.configapplication_allocated_heap" value="config.awsfreertos.thread.configapplication_allocated_heap.disabled"/>
       <property id="config.awsfreertos.thread.configgenerate_run_time_stats" value="config.awsfreertos.thread.configgenerate_run_time_stats.disabled"/>
       <property id="config.awsfreertos.thread.configuse_timers" value="config.awsfreertos.thread.configuse_timers.enabled"/>

@@ -45,7 +45,7 @@ FSP_HEADER
 #define configTICK_RATE_HZ (1000)
 #endif
 #ifndef configMAX_PRIORITIES
-#define configMAX_PRIORITIES (5)
+#define configMAX_PRIORITIES (7)
 #endif
 #ifndef configMINIMAL_STACK_SIZE
 #define configMINIMAL_STACK_SIZE (128)
@@ -117,7 +117,7 @@ FSP_HEADER
 #define configSUPPORT_DYNAMIC_ALLOCATION (1)
 #endif
 #ifndef configTOTAL_HEAP_SIZE
-#define configTOTAL_HEAP_SIZE (0x1000)
+#define configTOTAL_HEAP_SIZE (45000)
 #endif
 #ifndef configAPPLICATION_ALLOCATED_HEAP
 #define configAPPLICATION_ALLOCATED_HEAP (0)

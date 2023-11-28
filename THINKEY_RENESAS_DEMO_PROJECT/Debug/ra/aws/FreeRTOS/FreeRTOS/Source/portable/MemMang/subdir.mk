@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../ra/aws/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_2.c 
+../ra/aws/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.c 
 
 C_DEPS += \
-./ra/aws/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_2.d 
+./ra/aws/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.d 
 
 OBJS += \
-./ra/aws/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_2.o 
+./ra/aws/FreeRTOS/FreeRTOS/Source/portable/MemMang/heap_4.o 
 
 SREC += \
 THINKEY_RENESAS_DEMO_PROJECT.srec 

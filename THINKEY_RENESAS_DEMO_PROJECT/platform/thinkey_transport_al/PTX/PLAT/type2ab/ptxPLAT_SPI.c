@@ -53,7 +53,7 @@
  * ####################################################################################################################
  */
 
-#define PRINT_DATA 1
+#define PRINT_DATA 0
 
 #define THINKEY_SPI_MOSI               NRF_GPIO_PIN_MAP(0, 24) 
 #define THINKEY_SPI_MISO               NRF_GPIO_PIN_MAP(1, 9) 
@@ -254,7 +254,7 @@ ptxStatus_t ptxPLAT_SPI_TRx(ptxPLAT_Spi_t *spi, uint8_t *txBuf[], size_t txLen[]
             result = R_SPI_WriteRead(&g_spi0_ctrl, tempWriteBuf, tempReadBuf, tempRxLen + tempTxLen, SPI_BIT_WIDTH_8_BITS);
 
             xSemaphoreTake(bin_sem,portMAX_DELAY);
-            SEGGER_RTT_printf(0,"sem val after take %d",(int)uxSemaphoreGetCount( bin_sem ));
+           // SEGGER_RTT_printf(0,"sem val after take %d",(int)uxSemaphoreGetCount( bin_sem ));
           //  result = R_IOPORT_PinWrite(&g_ioport_ctrl, SPI_SS, BSP_IO_LEVEL_HIGH);
 
             if(result == FSP_SUCCESS) {
@@ -285,9 +285,9 @@ ptxStatus_t ptxPLAT_SPI_TRx(ptxPLAT_Spi_t *spi, uint8_t *txBuf[], size_t txLen[]
                // result  = nrf_drv_spi_transfer(&spi_t, txBuf[i], txLen[i], NULL, 0);
 
                 result = R_SPI_Write(&g_spi0_ctrl, txBuf[i], txLen[i], SPI_BIT_WIDTH_8_BITS);
-                SEGGER_RTT_printf(0,"sem val before take %d",(int)uxSemaphoreGetCount( bin_sem ));
+               // SEGGER_RTT_printf(0,"sem val before take %d",(int)uxSemaphoreGetCount( bin_sem ));
                 xSemaphoreTake(bin_sem,portMAX_DELAY);
-                SEGGER_RTT_printf(0,"sem val after take %d",(int)uxSemaphoreGetCount( bin_sem ));
+               // SEGGER_RTT_printf(0,"sem val after take %d",(int)uxSemaphoreGetCount( bin_sem ));
 
                 if(result == FSP_SUCCESS) {
                     //THINKEY_DEBUG_INFO("SPI write success");
@@ -370,7 +370,7 @@ ptxStatus_t ptxPLAT_SPI_TriggerRx(ptxPLAT_Spi_t *spi)
         //read_val = nrf_drv_gpiote_in_is_set(THINKEY_GPIO_INTR_PIN);
       //  read_val = R_BSP_PinRead(GPIO_INTR_PIN);
         read_val = R_BSP_PinRead (INTRQ);
-        SEGGER_RTT_printf(0, "\nValue of intr read val %d\n", read_val);
+       // SEGGER_RTT_printf(0, "\nValue of intr read val %d\n", read_val);
 
         if(1u == read_val){
            // THINKEY_DEBUG_INFO("There is something to read!");

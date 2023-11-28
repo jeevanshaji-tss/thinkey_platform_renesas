@@ -91,12 +91,12 @@ void task_debug_init(void);
  * Function prototype
  ******************************************************************************/
 #define task_debug_init(void)
-#define task_debug_printf(...) do{printf(__VA_ARGS__);printf("\r\n");}while(0)
-#define task_print(...)        do{printf(__VA_ARGS__);printf("\r\n");}while(0)
-#define task_print_info(...)   do{printf(__VA_ARGS__);printf("\r\n");}while(0)
-#define task_print_warning(...) do{printf(__VA_ARGS__);printf("\r\n");}while(0)
-#define task_print_error(...)  do{printf(__VA_ARGS__);printf("\r\n");}while(0)
-#define debug_printf(...)      do{printf(__VA_ARGS__);printf("\r\n");}while(0)
+#define task_debug_printf(...) do{SEGGER_RTT_printf(0,__VA_ARGS__);SEGGER_RTT_printf(0,"\r\n");}while(0)
+#define task_print(...)        do{SEGGER_RTT_printf(0,__VA_ARGS__);SEGGER_RTT_printf(0,"\r\n");}while(0)
+#define task_print_info(...)   do{SEGGER_RTT_printf(0,__VA_ARGS__);SEGGER_RTT_printf(0,"\r\n");}while(0)
+#define task_print_warning(...) do{SEGGER_RTT_printf(0,__VA_ARGS__);SEGGER_RTT_printf(0,"\r\n");}while(0)
+#define task_print_error(...)  do{SEGGER_RTT_printf(0,__VA_ARGS__);SEGGER_RTT_printf(0,"\r\n");}while(0)
+#define debug_printf(...)      do{SEGGER_RTT_printf(0,__VA_ARGS__);SEGGER_RTT_printf(0,"\r\n");}while(0)
 
 #endif /* DEBUG_ENABLE */
 

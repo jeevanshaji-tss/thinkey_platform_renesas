@@ -15,7 +15,7 @@
 #define THINKEY_DEBUG_ERROR task_print_error
 #define THINKEY_DEBUG_WARNING task_print_warning
 #define THINKEY_DEBUG_INFO task_print_info
-#define THINKEY_DEBUG_PRINT_STATUS_MESSAGE(...) do{TKey_Debug_Tab_App_Send_Status_Message(__VA_ARGS__);}while(0)
+#define THINKEY_DEBUG_PRINT_STATUS_MESSAGE//(...) do{TKey_Debug_Tab_App_Send_Status_Message(__VA_ARGS__);}while(0)
 /**
  * \brief Initialisation method for debug prints 
  */ 
