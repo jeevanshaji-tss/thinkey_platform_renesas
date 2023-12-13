@@ -1,0 +1,8 @@
+#ifndef THINKEY_VERSION_H
+#define THINKEY_VERSION_H
+
+#define THINKEY_VERSION_NUMBER "1.2.0"
+
+
+
+#endif /*THINKEY_VERSION_H*/
